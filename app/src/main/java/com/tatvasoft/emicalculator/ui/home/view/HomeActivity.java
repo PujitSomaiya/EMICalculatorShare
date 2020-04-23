@@ -1,9 +1,21 @@
 package com.tatvasoft.emicalculator.ui.home.view;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,12 +24,23 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.tatvasoft.emicalculator.R;
 import com.tatvasoft.emicalculator.util.CommonUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextInputLayout tilLoanAmount, tilRateOfInterest, tilNoOfInstallment, tilPrePayment;
     private EditText edLoanAmount, edRateOfInterest, edNoOfInstallment, edPrePayment;
     private Button btnSubmit, btnClear, btnTime;
-    private int count = 0;
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat;
+    private int count = 0,MONTH;
+    private Spinner spnDate;
+    final Context context=this;
+    private String futureDate,currentDate;
+    private Date date;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +68,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         btnClear = findViewById(R.id.btnClear);
         btnTime = findViewById(R.id.btnTime);
         btnSubmit.setOnClickListener(this);
+        btnClear.setOnClickListener(this);
+        btnTime.setOnClickListener(this);
     }
 
     @Override
@@ -58,8 +83,96 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void showDialog() {
+        final Dialog dialog=new Dialog(context);
+        dialog.setContentView(R.layout.dialog_time_period);
+        spnDate=dialog.findViewById(R.id.spnDate);
+        final TextView tvStartDate=dialog.findViewById(R.id.tvStartDate);
+        final TextView tvEndDate=dialog.findViewById(R.id.tvEndDate);
+        setSpinnerAdapter();
+        calendar = Calendar.getInstance();
+        dateFormat = new SimpleDateFormat("MM");
+        String month = dateFormat.format(calendar.getTime());
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        date=calendar.getTime();
+        currentDate= dateFormat.format(date);
 
+        calendar.add(Calendar.DATE, 0);
+        calendar.add(Calendar.MONTH, 0);
+        monthCheck(month);
+        calendar.add(Calendar.YEAR, MONTH);
+
+        futureDate =dateFormat.format(calendar.getTime());
+        tvStartDate.setText(currentDate);
+        tvEndDate.setText((futureDate));
+        spnDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 1:
+                        dateFormat=new SimpleDateFormat("dd/MM/yyyy");
+                        currentDate= dateFormat.format(date);
+                        futureDate =dateFormat.format(calendar.getTime());
+                        tvStartDate.setText(currentDate);
+                        tvEndDate.setText((futureDate));
+                        break;
+                    case 2:
+                        dateFormat=new SimpleDateFormat("dd/MM/yy");
+                        currentDate= dateFormat.format(date);
+                        futureDate =dateFormat.format(calendar.getTime());
+                        tvStartDate.setText(currentDate);
+                        tvEndDate.setText((futureDate));
+                        break;
+                    case 3:
+                        dateFormat=new SimpleDateFormat("dd/MMM/yyyy");
+                        currentDate= dateFormat.format(date);
+                        futureDate =dateFormat.format(calendar.getTime());
+                        tvStartDate.setText(currentDate);
+                        tvEndDate.setText((futureDate));
+                        break;
+                    case 4:
+                        dateFormat=new SimpleDateFormat("yy/MM/dd");
+                        currentDate= dateFormat.format(date);
+                        futureDate =dateFormat.format(calendar.getTime());
+                        tvStartDate.setText(currentDate);
+                        tvEndDate.setText((futureDate));
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        dialog.show();
+    }
+
+    private void monthCheck(String month) {
+        if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>=12&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<24){
+            MONTH=1;
+        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>=24&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<36){
+            MONTH=2;
+        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>=36&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<48){
+            MONTH=3;
+        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>=48&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<60){
+            MONTH=4;
+        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>=60&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<72){
+            MONTH=5;
+        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>=72&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<84){
+            MONTH=6;
+        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>=84&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<96){
+            MONTH=6;
+        }else {
+            MONTH=0;
+        }
+    }
+    private void setSpinnerAdapter() {
+        String[] items = new String[]{"dd/mm/yyyy","dd/mm/yy","dd/mmm/yyyy","yy/mm/dd"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spnDate.setAdapter(adapter);
     }
 
     private void clearDetails() {
@@ -80,7 +193,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             tilLoanAmount.setError("");
             tilRateOfInterest.setError("");
             tilNoOfInstallment.setError(getString(R.string.err_installment));
-        } else if (CommonUtils.isEmptyEditText(edPrePayment) && CommonUtils.isNotNull(edPrePayment)) {
+        }else if (Integer.parseInt(edNoOfInstallment.getText().toString()) <= 6 || Integer.parseInt(edPrePayment.getText().toString()) >90) {
+            tilLoanAmount.setError("");
+            tilRateOfInterest.setError("");
+            tilNoOfInstallment.setError("No of installment should be greater than 6 and below 90");
+        }  else if (CommonUtils.isEmptyEditText(edPrePayment) && CommonUtils.isNotNull(edPrePayment)) {
             tilLoanAmount.setError("");
             tilRateOfInterest.setError("");
             tilNoOfInstallment.setError("");
