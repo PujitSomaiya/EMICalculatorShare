@@ -3,6 +3,7 @@ package com.tatvasoft.emicalculator.ui.home.view;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -22,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.tatvasoft.emicalculator.R;
+import com.tatvasoft.emicalculator.ui.installation.view.InstallationViewActivity;
 import com.tatvasoft.emicalculator.util.CommonUtils;
 
 import java.text.SimpleDateFormat;
@@ -87,9 +89,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void showDialog() {
         final Dialog dialog=new Dialog(context);
         dialog.setContentView(R.layout.dialog_time_period);
-        spnDate=dialog.findViewById(R.id.spnDate);
         final TextView tvStartDate=dialog.findViewById(R.id.tvStartDate);
         final TextView tvEndDate=dialog.findViewById(R.id.tvEndDate);
+        spnDate=dialog.findViewById(R.id.spnDate);
         setSpinnerAdapter();
         calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("MM");
@@ -150,19 +152,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void monthCheck(String month) {
-        if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>=12&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<24){
+        if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>12&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<24){
+            YEAR=0;
+        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>24&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<36){
             YEAR=1;
-        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>=24&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<36){
+        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>36&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<48){
             YEAR=2;
-        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>=36&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<48){
+        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>48&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<60){
             YEAR=3;
-        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>=48&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<60){
+        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>60&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<72){
             YEAR=4;
-        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>=60&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<72){
+        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>72&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<84){
             YEAR=5;
-        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>=72&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<84){
-            YEAR=6;
-        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>=84&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<96){
+        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>84&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<96){
             YEAR=6;
         }else {
             YEAR=0;
@@ -216,6 +218,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             if (count == 1) {
                 Toast.makeText(this, "enabled", Toast.LENGTH_SHORT).show();
+                Intent installmentIntent=new Intent(this, InstallationViewActivity.class);
+                installmentIntent.putExtra("Loan Amount",Double.parseDouble(edLoanAmount.getText().toString()));
+                installmentIntent.putExtra("Rate of interest",Double.parseDouble(edRateOfInterest.getText().toString()));
+                installmentIntent.putExtra("Installment",Double.parseDouble(edNoOfInstallment.getText().toString()));
+                startActivity(installmentIntent);
             }
             count=0;
             btnTime.setVisibility(View.VISIBLE);

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/_5sdp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/bg_black_round_border"
+        >
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvInstallment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/inst_no"
+        android:textSize="@dimen/_15ssp"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvInstallmentNo"
+        />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvInstallmentNo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvInstallment"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvInstallmentDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_15ssp"
+        android:text="@string/inst_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvInstallment"
+        app:layout_constraintEnd_toStartOf="@id/tvInstallmentDateNo"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvInstallmentDateNo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvInstallmentDate"
+        app:layout_constraintTop_toBottomOf="@id/tvInstallment" />
+
+    <com.google.android.material.textview.MaterialTextView
+    android:id="@+id/tvOpeningBalance"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text="@string/opening"
+    android:textSize="@dimen/_10ssp"
+    android:textColor="@android:color/black"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/tvInstallmentDate"
+    app:layout_constraintEnd_toStartOf="@id/tvOpeningBalanceNo"
+    />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvOpeningBalanceNo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvOpeningBalance"
+        app:layout_constraintTop_toBottomOf="@id/tvInstallmentDate" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvEMI"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/emi"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_15ssp"
+        app:layout_constraintEnd_toStartOf="@id/tvEMINo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvOpeningBalance" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvEMINo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvEMI"
+        app:layout_constraintTop_toBottomOf="@id/tvOpeningBalance" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvInterest"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/interest"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_15ssp"
+        app:layout_constraintEnd_toStartOf="@id/tvInterestNo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEMI" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvInterestNo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvInterest"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvInterest"
+            app:layout_constraintTop_toBottomOf="@+id/tvEMINo" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvPrinciple"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/principle"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_15ssp"
+        app:layout_constraintEnd_toStartOf="@id/tvPrincipleNo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvInterest"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvPrincipleNo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintTop_toBottomOf="@id/tvInterest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvPrinciple"
+        />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
