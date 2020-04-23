@@ -40,7 +40,7 @@ public class InstallationViewActivity extends AppCompatActivity {
     }
     private ArrayList<InstallmentModel> getDataList() {
         installmentData = new ArrayList<>();
-        for (Double i=Installment;i>1;i--){
+        for (Double i=(Installment+1);i>1;i--){
             Double Interest=(LoanAmount*RateOfInterest)/100;
             Double EMI=Math.pow((((1+RateOfInterest)*LoanAmount*RateOfInterest)),i)/Math.pow(RateOfInterest,i-1);
             Double principle=EMI-Interest;
