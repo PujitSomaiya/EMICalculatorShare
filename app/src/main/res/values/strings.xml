@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">EMI Calculator</string>
     <string name="required_inputs">Required Inputs</string>
-    <string name="load_amount">Load Amount</string>
+    <string name="load_amount">Loan Amount</string>
     <string name="rate_of_interest">Rate Of Interest</string>
     <string name="no_of_installemnt">No. Of Installment</string>
     <string name="pre_payment">Pre-payment locking period</string>
