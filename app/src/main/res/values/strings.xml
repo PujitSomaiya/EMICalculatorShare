@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">EMI Calculator</string>
+    <string name="required_inputs">Required Inputs</string>
+    <string name="load_amount">Load Amount</string>
+    <string name="rate_of_interest">Rate Of Interest</string>
+    <string name="no_of_installemnt">No. Of Installment</string>
+    <string name="pre_payment">Pre-payment locking period</string>
+    <string name="submit">Submit</string>
+    <string name="clear">Clear</string>
+    <string name="time_period">Time Period</string>
+    <string name="err_loan_amount">Enter loan amount</string>
+    <string name="err_interest">Enter rate of interest</string>
+    <string name="err_installment">Enter no of installment</string>
+    <string name="err_prepayment">Enter pre payment locking period</string>
+    <string name="err_prepayment_month">Enter between 6 to below installation month</string>
+    <string name="pre_payment_6">6</string>
+</resources>
