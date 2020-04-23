@@ -20,6 +20,7 @@ public class InstallationViewActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView rvInstallments;
     private ArrayList<InstallmentModel> installmentData = new ArrayList<>();
+    Double storeAmount;
 
 
     @Override
@@ -36,16 +37,24 @@ public class InstallationViewActivity extends AppCompatActivity {
         getDataList();
         linearLayoutManager = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
         rvInstallments.setLayoutManager(linearLayoutManager);
+        storeAmount=LoanAmount;
         rvInstallments.setAdapter(new InstallationRecyclerAdapter(this,getDataList()));
     }
     private ArrayList<InstallmentModel> getDataList() {
         installmentData = new ArrayList<>();
         for (Double i=(Installment+1);i>1;i--){
             Double Interest=(LoanAmount*RateOfInterest)/100;
-            Double EMI=Math.pow((((1+RateOfInterest)*LoanAmount*RateOfInterest)),i)/Math.pow(RateOfInterest,i-1);
+            Double EMI= ((LoanAmount*(RateOfInterest/100))/(Math.pow((1+(RateOfInterest/100)),Installment))-1)*12;
             Double principle=EMI-Interest;
-            Double opening=principle-LoanAmount;
+            if (i==(Installment+1)){
+                storeAmount=LoanAmount;
+            }
+            Double opening=storeAmount;
+            if (opening<=0){
+            opening=0.0;
+            }
             installmentData.add(new InstallmentModel(i,Interest,RateOfInterest,LoanAmount,EMI,principle,opening));
+            storeAmount=storeAmount-principle;
         }
         return installmentData;
     }
