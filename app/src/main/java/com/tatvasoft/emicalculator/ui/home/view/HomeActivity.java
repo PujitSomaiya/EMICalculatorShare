@@ -102,7 +102,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         calendar.add(Calendar.DATE, 0);
         monthCheck(month);
-        calendar.add(Calendar.MONTH, Integer.parseInt(edNoOfInstallment.getText().toString()));
+        calendar.add(Calendar.MONTH, Integer.parseInt(edNoOfInstallment.getText().toString())-1);
         calendar.add(Calendar.YEAR, YEAR);
 
         futureDate =dateFormat.format(calendar.getTime());
