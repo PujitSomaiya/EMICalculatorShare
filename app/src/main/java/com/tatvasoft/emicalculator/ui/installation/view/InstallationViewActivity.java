@@ -44,10 +44,11 @@ public class InstallationViewActivity extends AppCompatActivity {
         installmentData = new ArrayList<>();
         for (Double i=(Installment+1);i>1;i--){
             Double Interest=(LoanAmount*RateOfInterest)/100;
-            Double EMI= ((LoanAmount*(RateOfInterest/100))/(Math.pow((1+(RateOfInterest/100)),Installment))-1)*12;
-            Double principle=EMI-Interest;
+//            Double EMI= ((LoanAmount*(RateOfInterest/100))/(Math.pow((1+(RateOfInterest/100)),Installment))-1)*12;
+            Double principle=LoanAmount/Installment;
+            Double EMI=principle+Interest;
             if (i==(Installment+1)){
-                storeAmount=LoanAmount;
+                storeAmount=LoanAmount-principle;
             }
             Double opening=storeAmount;
             if (opening<=0){
