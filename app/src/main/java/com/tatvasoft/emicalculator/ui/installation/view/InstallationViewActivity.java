@@ -10,36 +10,51 @@ import android.os.Bundle;
 import com.tatvasoft.emicalculator.R;
 import com.tatvasoft.emicalculator.ui.installation.model.InstallmentModel;
 
-import java.security.KeyStore;
 import java.util.ArrayList;
 
 public class InstallationViewActivity extends AppCompatActivity {
 
-    private Double LoanAmount,RateOfInterest,Installment;
-    private InstallationRecyclerAdapter installationRecyclerAdapter;
+    private Double LoanAmount,RateOfInterest,Installment,storeAmount;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView rvInstallments;
     private ArrayList<InstallmentModel> installmentData = new ArrayList<>();
-    Double storeAmount;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_installation_view);
+
+        initControls();
+
+    }
+
+    private void initControls() {
+        getIntentData();
+        getDataList();
+        initListeners();
+        setAdapter();
+    }
+
+    private void setAdapter() {
+        storeAmount=LoanAmount;
+        rvInstallments.setAdapter(new InstallationRecyclerAdapter(this,getDataList()));
+    }
+
+    private void initListeners() {
         rvInstallments=findViewById(R.id.rvInstallments);
+        linearLayoutManager = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
+        rvInstallments.setLayoutManager(linearLayoutManager);
+    }
 
-
+    private void getIntentData() {
         Intent homeIntent=getIntent();
         LoanAmount=homeIntent.getDoubleExtra("Loan Amount",0);
         RateOfInterest=homeIntent.getDoubleExtra("Rate of interest",0);
         Installment=homeIntent.getDoubleExtra("Installment",0);
-        getDataList();
-        linearLayoutManager = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
-        rvInstallments.setLayoutManager(linearLayoutManager);
-        storeAmount=LoanAmount;
-        rvInstallments.setAdapter(new InstallationRecyclerAdapter(this,getDataList()));
     }
+
     private ArrayList<InstallmentModel> getDataList() {
         installmentData = new ArrayList<>();
         for (Double i=(Installment+1);i>1;i--){
