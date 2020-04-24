@@ -57,11 +57,10 @@ public class InstallationViewActivity extends AppCompatActivity {
 
     private ArrayList<InstallmentModel> getDataList() {
         installmentData = new ArrayList<>();
-        for (Double i=(Installment+1);i>1;i--){
-            Double Interest=(LoanAmount*RateOfInterest)/100;
-//            Double EMI= ((LoanAmount*(RateOfInterest/100))/(Math.pow((1+(RateOfInterest/100)),Installment))-1)*12;
+        for (double i = (Installment+1); i>1; i--){
+            Double interest=(LoanAmount*RateOfInterest)/100;
             Double principle=LoanAmount/Installment;
-            Double EMI=principle+Interest;
+            Double EMI=principle+interest;
             if (i==(Installment+1)){
                 storeAmount=LoanAmount-principle;
             }
@@ -69,7 +68,7 @@ public class InstallationViewActivity extends AppCompatActivity {
             if (opening<=0){
             opening=0.0;
             }
-            installmentData.add(new InstallmentModel(i,Interest,RateOfInterest,LoanAmount,EMI,principle,opening));
+            installmentData.add(new InstallmentModel(i,interest,RateOfInterest,LoanAmount,EMI,principle,opening));
             storeAmount=storeAmount-principle;
         }
         return installmentData;
