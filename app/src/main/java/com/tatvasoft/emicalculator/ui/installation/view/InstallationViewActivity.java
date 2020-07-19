@@ -12,7 +12,7 @@ import com.tatvasoft.emicalculator.ui.installation.model.InstallmentModel;
 import java.util.ArrayList;
 
 public class InstallationViewActivity extends AppCompatActivity {
-
+//change git config
     private Double LoanAmount,RateOfInterest,Installment,storeAmount;
     private ActivityInstallationViewBinding binding;
 
