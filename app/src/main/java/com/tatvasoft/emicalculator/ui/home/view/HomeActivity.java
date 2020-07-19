@@ -20,9 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.tatvasoft.emicalculator.R;
+import com.tatvasoft.emicalculator.databinding.ActivityMainBinding;
 import com.tatvasoft.emicalculator.ui.installation.view.InstallationViewActivity;
 import com.tatvasoft.emicalculator.util.CommonUtils;
 
@@ -32,9 +34,6 @@ import java.util.Date;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextInputLayout tilLoanAmount, tilRateOfInterest, tilNoOfInstallment, tilPrePayment;
-    private EditText edLoanAmount, edRateOfInterest, edNoOfInstallment, edPrePayment;
-    private Button btnSubmit, btnClear, btnTime;
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
     private int count = 0,YEAR;
@@ -42,13 +41,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     final Context context=this;
     private String futureDate,currentDate;
     private Date date;
+    private ActivityMainBinding binding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        binding= DataBindingUtil.setContentView(this,R.layout.activity_main);
         initControls();
     }
 
@@ -58,20 +57,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initListeners() {
-        tilLoanAmount = findViewById(R.id.tilLoanAmount);
-        tilRateOfInterest = findViewById(R.id.tilRateOfInterest);
-        tilNoOfInstallment = findViewById(R.id.tilNoOfInstallment);
-        tilPrePayment = findViewById(R.id.tilPrePayment);
-        edLoanAmount = findViewById(R.id.edLoanAmount);
-        edRateOfInterest = findViewById(R.id.edRateOfInterest);
-        edNoOfInstallment = findViewById(R.id.edNoOfInstallment);
-        edPrePayment = findViewById(R.id.edPrePayment);
-        btnSubmit = findViewById(R.id.btnSubmit);
-        btnClear = findViewById(R.id.btnClear);
-        btnTime = findViewById(R.id.btnTime);
-        btnSubmit.setOnClickListener(this);
-        btnClear.setOnClickListener(this);
-        btnTime.setOnClickListener(this);
+        binding.btnSubmit.setOnClickListener(this);
+        binding.btnClear.setOnClickListener(this);
+        binding.btnTime.setOnClickListener(this);
     }
 
     @Override
@@ -102,7 +90,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         calendar.add(Calendar.DATE, 0);
         monthCheck(month);
-        calendar.add(Calendar.MONTH, Integer.parseInt(edNoOfInstallment.getText().toString())-1);
+        calendar.add(Calendar.MONTH, Integer.parseInt(binding.edNoOfInstallment.getText().toString())-1);
         calendar.add(Calendar.YEAR, YEAR);
 
         futureDate =dateFormat.format(calendar.getTime());
@@ -152,19 +140,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void monthCheck(String month) {
-        if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>12&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<24){
+        if ((Integer.parseInt(binding.edNoOfInstallment.getText().toString())+Integer.parseInt(month))>12&&(Integer.parseInt(binding.edNoOfInstallment.getText().toString())+Integer.parseInt(month))<24){
             YEAR=0;
-        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>24&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<36){
+        }else if ((Integer.parseInt(binding.edNoOfInstallment.getText().toString())+Integer.parseInt(month))>24&&(Integer.parseInt(binding.edNoOfInstallment.getText().toString())+Integer.parseInt(month))<36){
             YEAR=1;
-        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>36&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<48){
+        }else if ((Integer.parseInt(binding.edNoOfInstallment.getText().toString())+Integer.parseInt(month))>36&&(Integer.parseInt(binding.edNoOfInstallment.getText().toString())+Integer.parseInt(month))<48){
             YEAR=2;
-        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>48&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<60){
+        }else if ((Integer.parseInt(binding.edNoOfInstallment.getText().toString())+Integer.parseInt(month))>48&&(Integer.parseInt(binding.edNoOfInstallment.getText().toString())+Integer.parseInt(month))<60){
             YEAR=3;
-        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>60&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<72){
+        }else if ((Integer.parseInt(binding.edNoOfInstallment.getText().toString())+Integer.parseInt(month))>60&&(Integer.parseInt(binding.edNoOfInstallment.getText().toString())+Integer.parseInt(month))<72){
             YEAR=4;
-        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>72&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<84){
+        }else if ((Integer.parseInt(binding.edNoOfInstallment.getText().toString())+Integer.parseInt(month))>72&&(Integer.parseInt(binding.edNoOfInstallment.getText().toString())+Integer.parseInt(month))<84){
             YEAR=5;
-        }else if ((Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))>84&&(Integer.parseInt(edNoOfInstallment.getText().toString())+Integer.parseInt(month))<96){
+        }else if ((Integer.parseInt(binding.edNoOfInstallment.getText().toString())+Integer.parseInt(month))>84&&(Integer.parseInt(binding.edNoOfInstallment.getText().toString())+Integer.parseInt(month))<96){
             YEAR=6;
         }else {
             YEAR=0;
@@ -178,54 +166,54 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void clearDetails() {
-        edLoanAmount.setText("");
-        edNoOfInstallment.setText("");
-        edRateOfInterest.setText("");
-        edPrePayment.setText("6");
-        btnTime.setVisibility(View.GONE);
+        binding.edLoanAmount.setText("");
+        binding.edNoOfInstallment.setText("");
+        binding.edRateOfInterest.setText("");
+        binding.edPrePayment.setText("6");
+        binding.btnTime.setVisibility(View.GONE);
     }
 
     private void checkDetails() {
-        if (CommonUtils.isEmptyEditText(edLoanAmount) && CommonUtils.isNotNull(edLoanAmount)) {
-            tilLoanAmount.setError(getString(R.string.err_loan_amount));
-        } else if (CommonUtils.isEmptyEditText(edRateOfInterest) && CommonUtils.isNotNull(edRateOfInterest)) {
-            tilLoanAmount.setError("");
-            tilRateOfInterest.setError(getString(R.string.err_interest));
-        } else if (CommonUtils.isEmptyEditText(edNoOfInstallment) && CommonUtils.isNotNull(edNoOfInstallment)) {
-            tilLoanAmount.setError("");
-            tilRateOfInterest.setError("");
-            tilNoOfInstallment.setError(getString(R.string.err_installment));
-        }else if (Integer.parseInt(edNoOfInstallment.getText().toString()) <= 6 || Integer.parseInt(edNoOfInstallment.getText().toString()) >90) {
-            tilLoanAmount.setError("");
-            tilRateOfInterest.setError("");
-            tilNoOfInstallment.setError("No of installment should be greater than 6 and below 90");
-        }  else if (CommonUtils.isEmptyEditText(edPrePayment) && CommonUtils.isNotNull(edPrePayment)) {
-            tilLoanAmount.setError("");
-            tilRateOfInterest.setError("");
-            tilNoOfInstallment.setError("");
-            tilPrePayment.setError(getString(R.string.err_prepayment));
-        } else if (Integer.parseInt(edPrePayment.getText().toString()) < 6 || Integer.parseInt(edPrePayment.getText().toString()) >(Integer.parseInt(edNoOfInstallment.getText().toString()) - 1)) {
-            tilLoanAmount.setError("");
-            tilRateOfInterest.setError("");
-            tilNoOfInstallment.setError("");
-            btnTime.setVisibility(View.GONE);
-            tilPrePayment.setError(getString(R.string.err_prepayment_month));
+        if (CommonUtils.isEmptyEditText(binding.edLoanAmount) && CommonUtils.isNotNull(binding.edLoanAmount)) {
+            binding.tilLoanAmount.setError(getString(R.string.err_loan_amount));
+        } else if (CommonUtils.isEmptyEditText(binding.edRateOfInterest) && CommonUtils.isNotNull(binding.edRateOfInterest)) {
+            binding.tilLoanAmount.setError("");
+            binding.tilRateOfInterest.setError(getString(R.string.err_interest));
+        } else if (CommonUtils.isEmptyEditText(binding.edNoOfInstallment) && CommonUtils.isNotNull(binding.edNoOfInstallment)) {
+            binding.tilLoanAmount.setError("");
+            binding.tilRateOfInterest.setError("");
+            binding.tilNoOfInstallment.setError(getString(R.string.err_installment));
+        }else if (Integer.parseInt(binding.edNoOfInstallment.getText().toString()) <= 6 || Integer.parseInt(binding.edNoOfInstallment.getText().toString()) >90) {
+            binding.tilLoanAmount.setError("");
+            binding.tilRateOfInterest.setError("");
+            binding.tilNoOfInstallment.setError("No of installment should be greater than 6 and below 90");
+        }  else if (CommonUtils.isEmptyEditText(binding.edPrePayment) && CommonUtils.isNotNull(binding.edPrePayment)) {
+            binding.tilLoanAmount.setError("");
+            binding.tilRateOfInterest.setError("");
+            binding.tilNoOfInstallment.setError("");
+            binding.tilPrePayment.setError(getString(R.string.err_prepayment));
+        } else if (Integer.parseInt(binding.edPrePayment.getText().toString()) < 6 || Integer.parseInt(binding.edPrePayment.getText().toString()) >(Integer.parseInt(binding.edNoOfInstallment.getText().toString()) - 1)) {
+            binding.tilLoanAmount.setError("");
+            binding.tilRateOfInterest.setError("");
+            binding.tilNoOfInstallment.setError("");
+            binding.btnTime.setVisibility(View.GONE);
+            binding.tilPrePayment.setError(getString(R.string.err_prepayment_month));
         } else {
-            tilLoanAmount.setError("");
-            tilRateOfInterest.setError("");
-            tilNoOfInstallment.setError("");
-            tilPrePayment.setError("");
+            binding.tilLoanAmount.setError("");
+            binding.tilRateOfInterest.setError("");
+            binding.tilNoOfInstallment.setError("");
+            binding.tilPrePayment.setError("");
 
             if (count == 1) {
                 Toast.makeText(this, "enabled", Toast.LENGTH_SHORT).show();
                 Intent installmentIntent=new Intent(this, InstallationViewActivity.class);
-                installmentIntent.putExtra("Loan Amount",Double.parseDouble(edLoanAmount.getText().toString()));
-                installmentIntent.putExtra("Rate of interest",Double.parseDouble(edRateOfInterest.getText().toString()));
-                installmentIntent.putExtra("Installment",Double.parseDouble(edNoOfInstallment.getText().toString()));
+                installmentIntent.putExtra("Loan Amount",Double.parseDouble(binding.edLoanAmount.getText().toString()));
+                installmentIntent.putExtra("Rate of interest",Double.parseDouble(binding.edRateOfInterest.getText().toString()));
+                installmentIntent.putExtra("Installment",Double.parseDouble(binding.edNoOfInstallment.getText().toString()));
                 startActivity(installmentIntent);
             }
             count=0;
-            btnTime.setVisibility(View.VISIBLE);
+            binding.btnTime.setVisibility(View.VISIBLE);
             count++;
         }
     }

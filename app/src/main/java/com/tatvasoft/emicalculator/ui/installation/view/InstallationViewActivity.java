@@ -1,13 +1,12 @@
 package com.tatvasoft.emicalculator.ui.installation.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
-
 import com.tatvasoft.emicalculator.R;
+import com.tatvasoft.emicalculator.databinding.ActivityInstallationViewBinding;
 import com.tatvasoft.emicalculator.ui.installation.model.InstallmentModel;
 
 import java.util.ArrayList;
@@ -15,19 +14,13 @@ import java.util.ArrayList;
 public class InstallationViewActivity extends AppCompatActivity {
 
     private Double LoanAmount,RateOfInterest,Installment,storeAmount;
-    private LinearLayoutManager linearLayoutManager;
-    private RecyclerView rvInstallments;
-    private ArrayList<InstallmentModel> installmentData = new ArrayList<>();
-
-
+    private ActivityInstallationViewBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_installation_view);
-
+        binding= DataBindingUtil.setContentView(this,R.layout.activity_installation_view);
         initControls();
-
     }
 
     private void initControls() {
@@ -39,13 +32,12 @@ public class InstallationViewActivity extends AppCompatActivity {
 
     private void setAdapter() {
         storeAmount=LoanAmount;
-        rvInstallments.setAdapter(new InstallationRecyclerAdapter(this,getDataList()));
+        binding.rvInstallments.setAdapter(new InstallationRecyclerAdapter(this,getDataList()));
     }
 
     private void initListeners() {
-        rvInstallments=findViewById(R.id.rvInstallments);
-        linearLayoutManager = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
-        rvInstallments.setLayoutManager(linearLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
+        binding.rvInstallments.setLayoutManager(linearLayoutManager);
     }
 
     private void getIntentData() {
@@ -56,7 +48,7 @@ public class InstallationViewActivity extends AppCompatActivity {
     }
 
     private ArrayList<InstallmentModel> getDataList() {
-        installmentData = new ArrayList<>();
+        ArrayList<InstallmentModel> installmentData = new ArrayList<>();
         for (double i = (Installment+1); i>1; i--){
             Double interest=(LoanAmount*RateOfInterest)/100;
             Double principle=LoanAmount/Installment;
